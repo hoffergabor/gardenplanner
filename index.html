@@ -21,7 +21,7 @@
       // Developer Console, https://console.developers.google.com
       var CLIENT_ID = '791113283290-u8rjaqkcpor6m4vl7tsqcglr5pdblmvg.apps.googleusercontent.com';
 
-      var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+      var SCOPES = ["https://www.googleapis.com/auth/calendar"];
 
       /**
        * Check if current user has authorized this application.
@@ -70,42 +70,59 @@
        * once client library is loaded.
        */
       function loadCalendarApi() {
-        gapi.client.load('calendar', 'v3', listUpcomingEvents);
+        gapi.client.load('calendar', 'v3', listCalendars);
       }
 
       /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
-       * appropriate message is printed.
+       * List all calendars of the client
        */
-      function listUpcomingEvents() {
-        var request = gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
+      function listCalendars() {
+        var request = gapi.client.calendar.calendarList.list({
+          'maxResults': 10
         });
 
-        request.execute(function(resp) {
-          var events = resp.items;
-          appendPre('Upcoming events:');
+        var gardenPlannerExists = false;
 
-          if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-              var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
+        request.execute(function(resp) {
+          var calendars = resp.items;
+          appendPre('User calendars:');
+
+          if (calendars.length > 0) {
+            for (i = 0; i < calendars.length; i++) {
+              var calendar = calendars[i];
+              appendPre(calendar.summary + '-' + calendar.id)
+              if (calendar.summary == 'GardenPlanner') {
+                gardenPlannerExists = true;
               }
-              appendPre(event.summary + ' (' + when + ')')
             }
           } else {
             appendPre('No upcoming events found.');
           }
 
+          if (gardenPlannerExists == false) {
+            insertGardenPlannerCalendar();
+          }
+          else {
+            appendPre('GardenPlanner already was there');
+          }
+
         });
+        
+      }
+
+      /**
+       * Inserts the GardenPlanner calendar
+       */
+      function insertGardenPlannerCalendar() {
+        var request = gapi.client.calendar.calendars.insert({
+          'summary': 'GardenPlanner'
+        });
+
+        request.execute(function(resp) {
+            appendPre('Added GardenPlanner');
+            appendPre(resp.items);
+        });
+
       }
 
       /**
