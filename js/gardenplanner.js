@@ -45,7 +45,8 @@ function listCalendars() {
  */
 function insertGardenPlannerCalendar() {
   var request = gapi.client.calendar.calendars.insert({
-    'summary': 'GardenPlanner'
+    'summary': 'GardenPlanner',
+    'timeZone': 'Europe/Budapest'
   });
 
   request.execute(function(resp) {
@@ -59,7 +60,7 @@ function insertGardenPlannerCalendar() {
 }
 
 /**
- * Inserting a test event
+ * TODO: REMOVE - Inserting a test event
  */
 function insertTestEvent(gardenPlannerCalendarId) {
   var request = gapi.client.calendar.events.insert({
@@ -139,7 +140,9 @@ function importEvent(event,gardenPlannerCalendarId) {
     'iCalUID': event.iCalUID,
     'start': event.start,
     'end': event.end,
-    'summary': event.summary
+    'summary': event.summary,
+    'supportsAttachments': true,
+    'attachments': event.attachments
   });
 
   request.execute(function(resp) {
