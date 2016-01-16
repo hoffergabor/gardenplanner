@@ -76,6 +76,7 @@ function insertTestEvent(gardenPlannerCalendarId) {
   });
 
   listGardenPlannerEvents(gardenPlannerCalendarId);
+  listGardenPlannerSharedEvents(gardenPlannerCalendarId);
 
 }
 
@@ -97,7 +98,31 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
         console.log(event.summary + '-' + event.id);
       }
     } else {
-      console.warn('No events found.');
+      console.warn('No events found in GardenPlanner.');
+    }
+  });
+
+}
+
+/**
+ * Listing all GardenPlannerShared public events
+ */
+function listGardenPlannerSharedEvents() {
+  var request = gapi.client.calendar.events.list({
+    'calendarId': '2vl1lt3klk77dcfhhu93edl34o@group.calendar.google.com'
+  });
+
+  request.execute(function(resp) {
+    var events = resp.items;
+    console.log('GardenPlannerShared Events:');
+
+    if (events.length > 0) {
+      for (i = 0; i < events.length; i++) {
+        var event = events[i];
+        console.log(event.summary + '-' + event.id);
+      }
+    } else {
+      console.warn('No events found in GardenPlannerShared.');
     }
   });
 
