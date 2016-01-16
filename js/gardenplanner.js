@@ -7,30 +7,30 @@ function listCalendars() {
   });
 
   var gardenPlannerExists = false;
-  var gardenPlannerCalendarId = ''
+  var gardenPlannerCalendarId = '';
 
   request.execute(function(resp) {
     var calendars = resp.items;
-    appendPre('User calendars:');
+    console.log('User calendars:');
 
     if (calendars.length > 0) {
       for (i = 0; i < calendars.length; i++) {
         var calendar = calendars[i];
-        appendPre(calendar.summary + '-' + calendar.id)
+        console.log(calendar.summary + '-' + calendar.id);
         if (calendar.summary == 'GardenPlanner') {
           gardenPlannerExists = true;
           gardenPlannerCalendarId = calendar.id;
         }
       }
     } else {
-      appendPre('No calendars found.');
+      console.warn('No calendars found.');
     }
 
     if (gardenPlannerExists == false) {
       insertGardenPlannerCalendar();
     }
     else {
-      appendPre('GardenPlanner was already there - setting Events');
+      console.log('GardenPlanner was already there - setting Events');
       insertTestEvent(gardenPlannerCalendarId);
     }
 
@@ -47,8 +47,8 @@ function insertGardenPlannerCalendar() {
   });
 
   request.execute(function(resp) {
-      appendPre('Added GardenPlanner - setting events');
-      appendPre(resp.summary + '-' + resp.id);
+      console.log('Added GardenPlanner - setting events');
+      console.log(resp.summary + '-' + resp.id);
       insertTestEvent(resp.id);
   });
 
@@ -72,8 +72,7 @@ function insertTestEvent(gardenPlannerCalendarId) {
   });
 
   request.execute(function(resp) {
-      appendPre('Response');
-      appendPre(resp.summary);
+      console.log('Added a new event - ' + resp.summary);
   });
 
   listGardenPlannerEvents(gardenPlannerCalendarId);
@@ -90,15 +89,15 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
 
   request.execute(function(resp) {
     var events = resp.items;
-    appendPre('GardenPlanner Events:');
+    console.log('GardenPlanner Events:');
 
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
-        appendPre(event.summary + '-' + event.id)
+        console.log(event.summary + '-' + event.id);
       }
     } else {
-      appendPre('No events found.');
+      console.warn('No events found.');
     }
   });
 
