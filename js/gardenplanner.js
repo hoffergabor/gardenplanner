@@ -31,7 +31,9 @@ function listCalendars() {
     }
     else {
       console.log('GardenPlanner was already there - setting Events');
-      insertTestEvent(gardenPlannerCalendarId);
+      /*insertTestEvent(gardenPlannerCalendarId);*/
+      listGardenPlannerEvents(gardenPlannerCalendarId);
+      listGardenPlannerSharedEvents(gardenPlannerCalendarId);
     }
 
   });
@@ -49,7 +51,9 @@ function insertGardenPlannerCalendar() {
   request.execute(function(resp) {
       console.log('Added GardenPlanner - setting events');
       console.log(resp.summary + '-' + resp.id);
-      insertTestEvent(resp.id);
+      /*insertTestEvent(resp.id);*/
+      listGardenPlannerEvents(gardenPlannerCalendarId);
+      listGardenPlannerSharedEvents(gardenPlannerCalendarId);
   });
 
 }
@@ -74,9 +78,6 @@ function insertTestEvent(gardenPlannerCalendarId) {
   request.execute(function(resp) {
       console.log('Added a new event - ' + resp.summary);
   });
-
-  listGardenPlannerEvents(gardenPlannerCalendarId);
-  listGardenPlannerSharedEvents(gardenPlannerCalendarId);
 
 }
 
@@ -107,7 +108,7 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
 /**
  * Listing all GardenPlannerShared public events
  */
-function listGardenPlannerSharedEvents() {
+function listGardenPlannerSharedEvents(gardenPlannerCalendarId) {
   var request = gapi.client.calendar.events.list({
     'calendarId': '2vl1lt3klk77dcfhhu93edl34o@group.calendar.google.com'
   });
@@ -119,11 +120,30 @@ function listGardenPlannerSharedEvents() {
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
-        console.log(event.summary + '-' + event.id);
+        console.log(event.summary);
+        importEvent(event,gardenPlannerCalendarId)
       }
     } else {
       console.warn('No events found in GardenPlannerShared.');
     }
+  });
+
+}
+
+/**
+ * Listing all GardenPlannerShared public events
+ */
+function importEvent(event,gardenPlannerCalendarId) {
+  var request = gapi.client.calendar.events.import({
+    'calendarId': gardenPlannerCalendarId,
+    'iCalUID': event.iCalUID,
+    'start': event.start,
+    'end': event.end,
+    'summary': event.summary
+  });
+
+  request.execute(function(resp) {
+      console.log('Imported event - ' + resp.summary);
   });
 
 }
