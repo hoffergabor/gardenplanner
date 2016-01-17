@@ -1,0 +1,105 @@
+body {	
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+}
+
+.greenbg {
+	background-color: #71BB3E;
+}
+
+.header {
+	z-index: 1000;
+	height: 84px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+
+a.logo {
+	text-indent: -1000px;
+	display: block;
+	width: 121px;
+	height: 121px;
+	border-radius: 60px;
+	margin-top: 24px;
+	margin-left: auto;
+	margin-right: auto;
+	background: url("../img/logo.png") white;
+	background-size: 53px 101px;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+h1.title {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 24px;
+  color: white;
+  margin-top: 28px;
+  margin-left: 15px;
+}
+
+ul.menu {
+	list-style: none;
+	margin-top: 28px;
+}
+
+ul.menu li {
+	list-style: none;
+	float: right;
+	margin-right: 40px;
+}
+
+ul.menu li:first-child {
+	margin-right: 0;
+	margin-right: 15px;
+}
+
+ul.menu li a {
+	text-decoration: none;
+	color: white;
+	font-size: 16px;
+}
+
+.plantchooser {
+	z-index: 500;
+	margin-top: 100px;
+}
+
+.plantchooser h2 {
+	margin-left: 15px;
+}
+
+.plantchooser ul {
+	padding-left: 0;
+}
+
+.plantchooser ul li label {
+}
+
+.plantchooser ul li label img {
+	border: 1px solid #DADBD9;
+	border-radius: 6px;
+	overflow: hidden;
+	display: block;
+	width: 100%;
+	height: auto;
+	z-index: 50;
+}
+
+.plantchooser ul li label name {
+	background-color: rgba(16,34,16,0.7);
+	height: 72px;
+	display: block;
+	position: relative;
+	color: white;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	z-index: 51;
+	margin-top: -73px;
+	margin-left: 1px;
+	margin-right: 1px;
+}

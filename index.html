@@ -17,6 +17,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Bootstrap -->
+    <link href="css/gardenplanner.css" rel="stylesheet">
+
     <!-- GardenPlanner -->
     <script src="js/gardenplanner.js"></script>
 
@@ -30,6 +33,80 @@
 
   </head>
   <body>
+
+    <div class="container-fluid header greenbg">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="title">GardenPlanner</h1>
+        </div>
+        <div class="col-md-4">
+          <a class="logo" href="#top">GardenPlanner</a>
+        </div>
+        <div class="col-md-4">
+          <ul class="menu">
+            <li><a href="#">Log out</a></li>
+            <li><a href="#">What is GardenPlanner?</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form>
+    <div class="container-fluid plantchooser">
+      <div class="row">
+        <div class="col-md-9">
+          <h2>Choose your plants</h2>
+          <ul>
+            <li class="col-md-4">
+              <label>
+                <img src="http://suttons.s3.amazonaws.com/p/VETOM30892_3.jpg"/>
+                <name>plant name</name>
+                <input type="checkbox" id="plant" value="plant">
+              </label>
+            </li>
+            <li class="col-md-4">
+              <label>
+                <img src="http://suttons.s3.amazonaws.com/p/VETOM30892_3.jpg"/>
+                <name>plant name</name>
+                <input type="checkbox" id="plant" value="plant">
+              </label>
+            </li>
+            <li class="col-md-4">
+              <label>
+                <img src="http://suttons.s3.amazonaws.com/p/VETOM30892_3.jpg"/>
+                <name>plant name</name>
+                <input type="checkbox" id="plant" value="plant">
+              </label>
+            </li>
+            <li class="col-md-4">
+              <label>
+                <img src="http://suttons.s3.amazonaws.com/p/VETOM30892_3.jpg"/>
+                <name>plant name</name>
+                <input type="checkbox" id="plant" value="plant">
+              </label>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h2>Options</h2>
+          <h3>I prefer gardening</h3>
+            <select>
+              <option>Over the weekend</option>
+              <option>On weekdays</option>
+              <option>It ain't matter</option>
+            </select>
+            <h3>Notify me</h3>
+            <fieldset>
+              <label><input type="checkbox" id="check1" checked value="2w">two weeks before</label><br />
+              <label><input type="checkbox" id="check2" checked value="1w">a week before</label><br />
+              <label><input type="checkbox" id="check3" checked value="1d">a day before</label>
+            </fieldset>
+            <input type="submit" value="Save to my Google Calendar"/>
+        </div>
+      </div>
+    </div>
+    </form>
+
     <div id="authorize-div" style="display: none">
       <span>Authorize access to Google Calendar API</span>
       <!--Button for the user to click to initiate auth sequence -->
