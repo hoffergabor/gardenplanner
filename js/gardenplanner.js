@@ -70,15 +70,19 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
   request.execute(function(resp) {
     var events = resp.items;
     console.log('GardenPlanner Events:');
-
+    var plantsArray = [];
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
-        console.log(event.summary + '-' + event.id);
+        var eventgroup = getFirstWord(event.summary);
+        if (plantsArray[plantsArray.length-1] != eventgroup && eventgroup != "") {
+          plantsArray.push(eventgroup);
+        };
       }
     } else {
       console.warn('No events found in GardenPlanner.');
     }
+    console.log('Plants in user calendar: ' + plantsArray);
   });
 
 }
