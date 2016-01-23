@@ -120,7 +120,7 @@ function displayPlant(plant,category) {
   else {
     checked = "";
   }
-  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label class=\"plantcheck\" onclick=\"$(this).removeClass().addClass(\'pulse animated\').one(\'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend\',function(){$(this).removeClass();});\" for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
 }
 
 /**

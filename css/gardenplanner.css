@@ -84,6 +84,8 @@ ul.menu li a {
 
 .plantchooser ul {
 	padding-left: 0;
+	margin-bottom: 20px;
+	display: table;
 }
 
 .plantchooser ul li label {
@@ -135,6 +137,7 @@ ul.menu li a {
 	border-radius: 10px;
 	background-color: transparent;
 	padding-bottom: 32px;
+	-webkit-animation-duration: 0.3s;
 }
 
 .plantchooser ul li input[type="checkbox"]:checked + label {
