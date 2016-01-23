@@ -127,3 +127,65 @@ ul.menu li a {
 	background-color: rgba(113, 187, 65, 0.25);
 	padding-bottom: 32px;
 }
+
+.plantchooserform input[type="submit"] {
+	background-color: #FF8900;
+	font-weight: bold;
+	font-size: 16px;
+	height: 48px;
+	border-radius: 6px;
+	box-shadow: none;
+	border: none;
+	color: white;
+	width: 90%;
+	margin-left: -10px;
+	margin-top: 20px;
+}
+
+.plantchooserform h2 {
+	font-weight: bold;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-left: 0;
+}
+
+.plantchooserform h3 {
+	font-weight: normal;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-top: 30px;
+}
+
+.plantchooserform .styledselect select {
+   background: transparent;
+   width: 268px;
+   padding: 10px;
+   font-size: 16px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 34px;
+   -webkit-appearance: none;
+   }
+
+.plantchooserform .styledselect {
+   width: 90%;
+   height: 36px;
+   overflow: hidden;
+   background: url(../img/selectarrow.png) no-repeat right #F1F2F0;
+   background-size: 36px 36px;
+   border-radius: 4px;
+   font-family: 'Inconsolata';
+   font-size: 16px;
+   margin-left: -10px;
+}
+
+.plantchooserform input[type="checkbox"] {
+	margin-right: 8px;
+}
+
+.plantchooserform label {
+   	font-family: 'Inconsolata';
+   	font-size: 16px;
+	font-weight: normal;
+}

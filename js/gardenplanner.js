@@ -34,6 +34,7 @@ function listCalendars() {
       /*insertTestEvent(gardenPlannerCalendarId);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
       listGardenPlannerSharedEvents(gardenPlannerCalendarId);
+      getPublicCalendars(plants);
     }
 
   });
@@ -55,6 +56,7 @@ function insertGardenPlannerCalendar() {
       /*insertTestEvent(resp.id);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
       listGardenPlannerSharedEvents(gardenPlannerCalendarId);
+      getPublicCalendars(plants);
   });
 
 }
@@ -107,9 +109,26 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
 }
 
 /**
- * Listing all GardenPlannerShared public events
+ * Fetching public calendars from the DB
  */
-function listGardenPlannerSharedEvents(gardenPlannerCalendarId) {
+function getPublicCalendars(plants) {
+  plants().each(function (plant) {
+   console.log('Fetched from DB - ' + plant.name);
+   displayPlant(plant);
+  });
+}
+
+/**
+ * Displaying a plant on the canvas
+ */
+function displayPlant(plant) {
+  $( "#plantList" ).append('<li class=\"col-md-4\"><input type=\"checkbox\" id=\"' + plant.id + '\" value=\"' + plant.id + '\"><label for=\"' + plant.id + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+}
+
+/**
+ * Listing a public calendar's events
+ */
+function listGardenPlannerSharedEvents(calendarId) {
   var request = gapi.client.calendar.events.list({
     'calendarId': '2vl1lt3klk77dcfhhu93edl34o@group.calendar.google.com'
   });
@@ -122,7 +141,7 @@ function listGardenPlannerSharedEvents(gardenPlannerCalendarId) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
         console.log(event.summary);
-        importEvent(event,gardenPlannerCalendarId)
+        importEvent(event,calendarId)
       }
     } else {
       console.warn('No events found in GardenPlannerShared.');
@@ -132,11 +151,11 @@ function listGardenPlannerSharedEvents(gardenPlannerCalendarId) {
 }
 
 /**
- * Listing all GardenPlannerShared public events
+ * Importing a public calendar's events
  */
-function importEvent(event,gardenPlannerCalendarId) {
+function importEvent(event,calendarId) {
   var request = gapi.client.calendar.events.import({
-    'calendarId': gardenPlannerCalendarId,
+    'calendarId': calendarId,
     'iCalUID': event.iCalUID,
     'start': event.start,
     'end': event.end,
@@ -149,4 +168,17 @@ function importEvent(event,gardenPlannerCalendarId) {
       console.log('Imported event - ' + resp.summary);
   });
 
+}
+
+
+/**
+ * Append a pre element to the body containing the given message
+ * as its text node.
+ *
+ * @param {string} message Text to be placed in pre element.
+ */
+function appendPre(message) {
+  var pre = document.getElementById('output');
+  var textContent = document.createTextNode(message + '\n');
+  pre.appendChild(textContent);
 }

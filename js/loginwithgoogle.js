@@ -53,16 +53,3 @@ function handleAuthClick(event) {
 function loadCalendarApi() {
   gapi.client.load('calendar', 'v3', listCalendars);
 }
-
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-  var pre = document.getElementById('output');
-  var textContent = document.createTextNode(message + '\n');
-  pre.appendChild(textContent);
-}
