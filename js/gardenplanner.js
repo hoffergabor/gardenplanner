@@ -112,17 +112,30 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
  * Fetching public calendars from the DB
  */
 function getPublicCalendars(plants) {
-  plants().each(function (plant) {
+  displayCategory("Konyhakerti növények","konyhakert");
+  plants({category:"Konyhakert"}).each(function (plant) {
    console.log('Fetched from DB - ' + plant.name);
-   displayPlant(plant);
+   displayPlant(plant,"#konyhakert");
   });
+  displayCategory("Fűszernövények","fuszernoveny");
+  plants({category:"Fűszernövény"}).each(function (plant) {
+   console.log('Fetched from DB - ' + plant.name);
+   displayPlant(plant,"#fuszernoveny");
+  });
+}
+
+/**
+ * Displaying a plant category
+ */
+function displayCategory(categoryname,category) {
+  $( "#plantList" ).append('<h3>' + categoryname + '</h3><ul id=\"' + category + '\"></ul>');
 }
 
 /**
  * Displaying a plant on the canvas
  */
-function displayPlant(plant) {
-  $( "#plantList" ).append('<li class=\"col-md-4\"><input type=\"checkbox\" id=\"' + plant.id + '\" value=\"' + plant.id + '\"><label for=\"' + plant.id + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+function displayPlant(plant,category) {
+  $( category ).append('<li class=\"col-md-4\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\"><label for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
 }
 
 /**
