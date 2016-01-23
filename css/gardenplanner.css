@@ -39,7 +39,7 @@ h1.title {
   font-size: 24px;
   color: white;
   margin-top: 28px;
-  margin-left: 15px;
+  margin-left: 20px;
 }
 
 ul.menu {
@@ -70,7 +70,7 @@ ul.menu li a {
 }
 
 .plantchooser h2 {
-	margin-left: 15px;
+	margin-left: 20px;
 }
 
 .plantchooser ul {
@@ -120,12 +120,17 @@ ul.menu li a {
 	bottom: 10px;
 }
 
+.plantchooser ul li input[type="checkbox"] + label {
+	border: 1px solid transparent;
+	padding: 6px;
+	border-radius: 10px;
+	background-color: transparent;
+	padding-bottom: 32px;
+}
+
 .plantchooser ul li input[type="checkbox"]:checked + label {
 	border: 1px solid #71BB3E;
-	padding: 2%;
-	border-radius: 10px;
 	background-color: rgba(113, 187, 65, 0.25);
-	padding-bottom: 32px;
 }
 
 .plantchooserform input[type="submit"] {
