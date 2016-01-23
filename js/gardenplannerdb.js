@@ -1,5 +1,45 @@
 // GardenPlanner DB
 var plants = TAFFY([
-	{"id":1,"calendarId":"6cduupa7ednsvb5r6dari5bdks@group.calendar.google.com","name":"Paradicsom","img":"img/plants/paradicsom.jpg"},
-	{"id":2,"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com","name":"Paprika","img":"img/plants/paprika.jpg"}
+	{
+		"calendarId":"6cduupa7ednsvb5r6dari5bdks@group.calendar.google.com",
+		"name":"Paradicsom",
+		"img":"img/plants/paradicsom.jpg",
+		"category":"Konyhakert"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Paprika",
+		"img":"img/plants/paprika.jpg",
+		"category":"Konyhakert"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Bazsalikom",
+		"img":"img/plants/paprika.jpg",
+		"category":"Fűszernövény"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Fűszerpaprika",
+		"img":"img/plants/paprika.jpg",
+		"category":"Fűszernövény"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Menta",
+		"img":"img/plants/paprika.jpg",
+		"category":"Fűszernövény"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Chili",
+		"img":"img/plants/paprika.jpg",
+		"category":"Fűszernövény"
+	},
+	{
+		"calendarId":"e1a267g6nsg696mjbitkihd7fs@group.calendar.google.com",
+		"name":"Metélő petrezselyem",
+		"img":"img/plants/paprika.jpg",
+		"category":"Fűszernövény"
+	}
 ]);
