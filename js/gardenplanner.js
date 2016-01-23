@@ -33,7 +33,6 @@ function listCalendars() {
       console.log('GardenPlanner was already there - setting Events');
       /*insertTestEvent(gardenPlannerCalendarId);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
-      listGardenPlannerSharedEvents(gardenPlannerCalendarId);
       getPublicCalendars(plants);
     }
 
@@ -55,31 +54,7 @@ function insertGardenPlannerCalendar() {
       console.log(resp.summary + '-' + resp.id);
       /*insertTestEvent(resp.id);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
-      listGardenPlannerSharedEvents(gardenPlannerCalendarId);
       getPublicCalendars(plants);
-  });
-
-}
-
-/**
- * TODO: REMOVE - Inserting a test event
- */
-function insertTestEvent(gardenPlannerCalendarId) {
-  var request = gapi.client.calendar.events.insert({
-    'calendarId': gardenPlannerCalendarId,
-    'summary': 'testEvent',
-    'start': {
-      'dateTime': '2016-01-14T10:00:00z',
-      'timeZone': 'Europe/Budapest'
-    },
-    'end': {
-      'dateTime': '2016-01-14T11:00:00z',
-      'timeZone': 'Europe/Budapest'
-    }
-  });
-
-  request.execute(function(resp) {
-      console.log('Added a new event - ' + resp.summary);
   });
 
 }
@@ -136,31 +111,6 @@ function displayCategory(categoryname,category) {
  */
 function displayPlant(plant,category) {
   $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\"><label for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
-}
-
-/**
- * Listing a public calendar's events
- */
-function listGardenPlannerSharedEvents(calendarId) {
-  var request = gapi.client.calendar.events.list({
-    'calendarId': '2vl1lt3klk77dcfhhu93edl34o@group.calendar.google.com'
-  });
-
-  request.execute(function(resp) {
-    var events = resp.items;
-    console.log('GardenPlannerShared Events:');
-
-    if (events.length > 0) {
-      for (i = 0; i < events.length; i++) {
-        var event = events[i];
-        console.log(event.summary);
-        importEvent(event,calendarId)
-      }
-    } else {
-      console.warn('No events found in GardenPlannerShared.');
-    }
-  });
-
 }
 
 /**
