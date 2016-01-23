@@ -33,7 +33,6 @@ function listCalendars() {
       console.log('GardenPlanner was already there - setting Events');
       /*insertTestEvent(gardenPlannerCalendarId);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
-      getPublicCalendars(plants);
     }
 
   });
@@ -54,10 +53,11 @@ function insertGardenPlannerCalendar() {
       console.log(resp.summary + '-' + resp.id);
       /*insertTestEvent(resp.id);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
-      getPublicCalendars(plants);
   });
 
 }
+
+var plantsArray = [];
 
 /**
  * Listing all GardenPlanner events
@@ -70,12 +70,11 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
   request.execute(function(resp) {
     var events = resp.items;
     console.log('GardenPlanner Events:');
-    var plantsArray = [];
     if (events.length > 0) {
       for (i = 0; i < events.length; i++) {
         var event = events[i];
         var eventgroup = getFirstWord(event.summary);
-        if (plantsArray[plantsArray.length-1] != eventgroup && eventgroup != "") {
+        if (plantsArray.indexOf(eventgroup) == -1) {
           plantsArray.push(eventgroup);
         };
       }
@@ -83,6 +82,7 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
       console.warn('No events found in GardenPlanner.');
     }
     console.log('Plants in user calendar: ' + plantsArray);
+    getPublicCalendars(plants);
   });
 
 }
@@ -114,7 +114,13 @@ function displayCategory(categoryname,category) {
  * Displaying a plant on the canvas
  */
 function displayPlant(plant,category) {
-  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\"><label for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+  if (plantsArray.indexOf(plant.name) > -1) {
+    checked = "checked";
+  }
+  else {
+    checked = "";
+  }
+  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
 }
 
 /**
