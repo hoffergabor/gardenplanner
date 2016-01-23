@@ -183,6 +183,13 @@ function importEvent(event,calendarId) {
 
 }
 
+/**
+ * Get the first word from the event name (to determine what plants are added already)
+ */
+function getFirstWord(string) {
+  return string.substr(0, string.indexOf(" "));
+}
+
 
 /**
  * Append a pre element to the body containing the given message
