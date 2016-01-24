@@ -131,13 +131,17 @@ function saveToCalendar() {
   });
 }
 
-/* TODO - getting form details (selects and checkboxes)
-        - go through all checkboxes
-        - delete unselected plants' events if any
-        - import selected plants' events
-        - reset calendar notifications
-        - show progress
-        - show end message (success/failure)
+/*  
+  TODO 
+  - (done) getting form details (selects and checkboxes)
+  - (done) go through all checkboxes
+  - (done) select what is needed to remove/import elements and set notif.
+  - delete unselected plants' events if any
+  - import selected plants' events
+  - reset calendar notifications
+  - show progress
+  - show end message (success/failure)
+*/
 
 /* Importing a public calendar's events */
 function importEvent(event,calendarId) {
