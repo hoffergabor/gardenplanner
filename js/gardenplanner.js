@@ -111,6 +111,14 @@ function displayPlant(plant,category) {
   $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label class=\"plantcheck\" onclick=\"$(this).removeClass().addClass(\'pulse animated\').one(\'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend\',function(){$(this).removeClass();});\" for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
 }
 
+/* TODO - getting form details (selects and checkboxes)
+        - go through all user calendar events
+        - delete unselected plants' events if any
+        - import selected plants' events
+        - reset calendar notifications
+        - show progress
+        - show end message (success/failure)
+
 /* Importing a public calendar's events */
 function importEvent(event,calendarId) {
   var request = gapi.client.calendar.events.import({
@@ -128,6 +136,8 @@ function importEvent(event,calendarId) {
   });
 
 }
+
+/* ADDITIONAL FUNCTIONS */
 
 /* Get the first word from the event name */
 function getFirstWord(string) {
