@@ -55,7 +55,7 @@
       </div>
     </div>
 
-    <form>
+    <form id="plantchooserform" action="javascript:saveToCalendar();">
     <div class="container-fluid plantchooser">
       <div class="row">
         <div class="col-sm-7 col-md-8 col-lg-9">
@@ -76,7 +76,7 @@
           <h2>Options</h2>
           <h3>I prefer gardening</h3>
           <div class="styledselect">
-            <select>
+            <select class="whentogarden">
               <option>Over the weekend</option>
               <option>On weekdays</option>
               <option>It ain't matter</option>
@@ -84,9 +84,9 @@
           </div>
             <h3>Notify me</h3>
             <fieldset>
-              <label><input type="checkbox" id="check1" checked value="2w">two weeks before</label><br />
-              <label><input type="checkbox" id="check2" checked value="1w">a week before</label><br />
-              <label><input type="checkbox" id="check3" checked value="1d">a day before</label>
+              <label><input type="checkbox" class="notification" checked value="2w">two weeks before</label><br />
+              <label><input type="checkbox" class="notification" checked value="1w">a week before</label><br />
+              <label><input type="checkbox" class="notification" checked value="1d">a day before</label>
             </fieldset>
             <input type="submit" value="Save to my Google Calendar"/>
         </div>

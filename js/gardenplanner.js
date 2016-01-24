@@ -108,11 +108,31 @@ function displayPlant(plant,category) {
   else {
     checked = "";
   }
-  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label class=\"plantcheck\" onclick=\"$(this).removeClass().addClass(\'pulse animated\').one(\'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend\',function(){$(this).removeClass();});\" for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+  $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + ' class=\"plantcheckbox\"><label class=\"plantcheck\" onclick=\"$(this).removeClass().addClass(\'pulse animated\').one(\'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend\',function(){$(this).removeClass();});\" for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
+}
+
+function saveToCalendar() {
+  console.log('Preferred time - ' + $('.whentogarden').find(":selected").text());
+  $('input:checkbox.notification').each(function () {
+       if (this.checked) {
+         console.log('Notify - ' + $(this).val());
+       }
+       else {
+         console.log('Don\'t notify - ' + $(this).val());
+       }
+  });
+  $('input:checkbox.plantcheckbox').each(function () {
+       if (this.checked) {
+         console.log('Import - ' + $(this).val());
+       }
+       else {
+         console.log('Remove - ' + $(this).val());
+       }
+  });
 }
 
 /* TODO - getting form details (selects and checkboxes)
-        - go through all user calendar events
+        - go through all checkboxes
         - delete unselected plants' events if any
         - import selected plants' events
         - reset calendar notifications
