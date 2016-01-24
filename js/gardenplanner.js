@@ -1,6 +1,4 @@
-/**
- * List all calendars of the client
- */
+/* List all calendars of the client */
 function listCalendars() {
   var request = gapi.client.calendar.calendarList.list({
     'maxResults': 10
@@ -34,14 +32,11 @@ function listCalendars() {
       /*insertTestEvent(gardenPlannerCalendarId);*/
       listGardenPlannerEvents(gardenPlannerCalendarId);
     }
-
   });
-  
+
 }
 
-/**
- * Inserts the GardenPlanner calendar
- */
+/* Inserts the GardenPlanner calendar */
 function insertGardenPlannerCalendar() {
   var request = gapi.client.calendar.calendars.insert({
     'summary': 'GardenPlanner',
@@ -57,11 +52,10 @@ function insertGardenPlannerCalendar() {
 
 }
 
+/* Array to hold all existing plantnames in */
 var plantsArray = [];
 
-/**
- * Listing all GardenPlanner events
- */
+/* Listing all GardenPlanner events */
 function listGardenPlannerEvents(gardenPlannerCalendarId) {
   var request = gapi.client.calendar.events.list({
     'calendarId': gardenPlannerCalendarId
@@ -87,9 +81,7 @@ function listGardenPlannerEvents(gardenPlannerCalendarId) {
 
 }
 
-/**
- * Fetching public calendars from the DB
- */
+/* Fetching public calendars from the DB */
 function getPublicCalendars(plants) {
   displayCategory("Konyhakerti növények","konyhakert");
   plants({category:"Konyhakert"}).each(function (plant) {
@@ -103,16 +95,12 @@ function getPublicCalendars(plants) {
   });
 }
 
-/**
- * Displaying a plant category
- */
+/* Displaying a plant category */
 function displayCategory(categoryname,category) {
   $( "#plantList" ).append('<h3>' + categoryname + '</h3><ul id=\"' + category + '\"></ul>');
 }
 
-/**
- * Displaying a plant on the canvas
- */
+/* Displaying a plant on the canvas */
 function displayPlant(plant,category) {
   if (plantsArray.indexOf(plant.name) > -1) {
     checked = "checked";
@@ -123,9 +111,7 @@ function displayPlant(plant,category) {
   $( category ).append('<li class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\"><input type=\"checkbox\" id=\"' + plant.name + '\" value=\"' + plant.name + '\" ' + checked + '><label class=\"plantcheck\" onclick=\"$(this).removeClass().addClass(\'pulse animated\').one(\'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend\',function(){$(this).removeClass();});\" for=\"' + plant.name + '\"><img src=\"' + plant.img + '\"/><name>' + plant.name + '</name></label></li>');
 }
 
-/**
- * Importing a public calendar's events
- */
+/* Importing a public calendar's events */
 function importEvent(event,calendarId) {
   var request = gapi.client.calendar.events.import({
     'calendarId': calendarId,
@@ -143,20 +129,13 @@ function importEvent(event,calendarId) {
 
 }
 
-/**
- * Get the first word from the event name (to determine what plants are added already)
- */
+/* Get the first word from the event name */
 function getFirstWord(string) {
   return string.substr(0, string.indexOf(" "));
 }
 
 
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
+/* Append a pre element to the body containing the given message as its text node. */
 function appendPre(message) {
   var pre = document.getElementById('output');
   var textContent = document.createTextNode(message + '\n');
