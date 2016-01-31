@@ -143,7 +143,7 @@ function saveToCalendar() {
   - show end message (success/failure)
 */
 
-/* Importing a public calendar's events */
+/* Imports a calendar event */
 function importEvent(event,calendarId) {
   var request = gapi.client.calendar.events.import({
     'calendarId': calendarId,
@@ -157,6 +157,19 @@ function importEvent(event,calendarId) {
 
   request.execute(function(resp) {
       console.log('Imported event - ' + resp.summary);
+  });
+
+}
+
+/* Deletes an event */
+function deleteEvent(event,calendarId) {
+  var request = gapi.client.calendar.events.delete({
+    'calendarId': calendarId,
+    'eventId': event.eventId
+  });
+
+  request.execute(function(resp) {
+      console.log('Deleted event - ' + resp.summary);
   });
 
 }
