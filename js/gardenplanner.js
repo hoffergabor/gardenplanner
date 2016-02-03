@@ -1,3 +1,6 @@
+/* what is the Id of the user's GardenPlanner calendar */
+var gardenPlannerCalendarId = '';
+
 /* List all calendars of the client */
 function listCalendars() {
   var request = gapi.client.calendar.calendarList.list({
@@ -5,7 +8,6 @@ function listCalendars() {
   });
 
   var gardenPlannerExists = false;
-  var gardenPlannerCalendarId = '';
 
   request.execute(function(resp) {
     var calendars = resp.items;
@@ -29,8 +31,7 @@ function listCalendars() {
     }
     else {
       console.log('GardenPlanner was already there - setting Events');
-      /*insertTestEvent(gardenPlannerCalendarId);*/
-      listGardenPlannerEvents(gardenPlannerCalendarId);
+      listGardenPlannerEvents();
     }
   });
 
@@ -46,8 +47,8 @@ function insertGardenPlannerCalendar() {
   request.execute(function(resp) {
       console.log('Added GardenPlanner - setting events');
       console.log(resp.summary + '-' + resp.id);
-      /*insertTestEvent(resp.id);*/
-      listGardenPlannerEvents(gardenPlannerCalendarId);
+      gardenPlannerCalendarId = resp.id;
+      listGardenPlannerEvents();
   });
 
 }
@@ -56,7 +57,7 @@ function insertGardenPlannerCalendar() {
 var plantsArray = [];
 
 /* Listing all GardenPlanner events */
-function listGardenPlannerEvents(gardenPlannerCalendarId) {
+function listGardenPlannerEvents() {
   var request = gapi.client.calendar.events.list({
     'calendarId': gardenPlannerCalendarId
   });
@@ -123,12 +124,61 @@ function saveToCalendar() {
   });
   $('input:checkbox.plantcheckbox').each(function () {
        if (this.checked) {
-         console.log('Import - ' + $(this).val());
+         console.log('Attempting to import - ' + $(this).val());
+         importGardenPlannerEvents($(this).val());
        }
        else {
-         console.log('Remove - ' + $(this).val());
+         console.log('Attempting to delete - ' + $(this).val());
+         deleteGardenPlannerEvents($(this).val());
        }
   });
+}
+
+/* Import GardenPlanner events */
+function importGardenPlannerEvents(eventName) {
+  calendarId = plants({name:eventName}).calendarId;
+  var request = gapi.client.calendar.events.list({
+    'calendarId': calendarId
+  });
+
+  request.execute(function(resp) {
+    var events = resp.items;
+    if (events.length > 0) {
+      for (i = 0; i < events.length; i++) {
+        var event = events[i];
+        importEvent(event);
+      }
+    } else {
+      console.warn('No events to import.');
+    }
+  });
+
+}
+
+/* Delete GardenPlanner events */
+function deleteGardenPlannerEvents(eventName) {
+  var request = gapi.client.calendar.events.list({
+    'calendarId': gardenPlannerCalendarId
+  });
+
+  var eventnamefirst = getFirstWord(eventName);
+
+  request.execute(function(resp) {
+    var events = resp.items;
+    if (events.length > 0) {
+      for (i = 0; i < events.length; i++) {
+        var event = events[i];
+        var eventfirst = getFirstWord(event.summary);
+        if (eventfirst == eventnamefirst) {
+          console.log('Checking - ' + event.summary);
+          deleteEvent(event);
+        };
+      }
+    } else {
+      console.warn('No events to delete.');
+    }
+  });
+
 }
 
 /*  
@@ -136,17 +186,17 @@ function saveToCalendar() {
   - (done) getting form details (selects and checkboxes)
   - (done) go through all checkboxes
   - (done) select what is needed to remove/import elements and set notif.
-  - delete unselected plants' events if any
-  - import selected plants' events
+  - (done) delete unselected plants' events if any
+  - (done) import selected plants' events
   - reset calendar notifications
   - show progress
   - show end message (success/failure)
 */
 
 /* Imports a calendar event */
-function importEvent(event,calendarId) {
+function importEvent(event) {
   var request = gapi.client.calendar.events.import({
-    'calendarId': calendarId,
+    'calendarId': gardenPlannerCalendarId,
     'iCalUID': event.iCalUID,
     'start': event.start,
     'end': event.end,
@@ -162,15 +212,18 @@ function importEvent(event,calendarId) {
 }
 
 /* Deletes an event */
-function deleteEvent(event,calendarId) {
+function deleteEvent(event) {
   var request = gapi.client.calendar.events.delete({
-    'calendarId': calendarId,
+    'calendarId': gardenPlannerCalendarId,
     'eventId': event.eventId
   });
 
-  request.execute(function(resp) {
-      console.log('Deleted event - ' + resp.summary);
-  });
+  if (typeof resp === 'undefined') {
+    console.log('Event was successfully removed from the calendar!');
+  }
+  else{
+    console.log('An error occurred, please try again later.');
+    }
 
 }
 
@@ -178,7 +231,7 @@ function deleteEvent(event,calendarId) {
 
 /* Get the first word from the event name */
 function getFirstWord(string) {
-  return string.substr(0, string.indexOf(" "));
+  return (ret = string.substr(0, string.indexOf(" "))) ? ret : string;
 }
 
 
