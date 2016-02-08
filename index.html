@@ -36,7 +36,27 @@
     <script src="js/gardenplanner.js"></script>
 
   </head>
-  <body>
+  <body id="gardenplanner" class="loggedout">
+
+    <div class="overlay hiddenoverlay">&nbsp;</div>
+
+    <div class="infopopup hiddeninfo">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10">
+            <h2>What is GardenPlanner?</h2>
+          </div>
+          <div class="col-md-2">
+            <button id="closeinfo-button" onclick="handleCloseInfo(event)">Close</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <p>Blah blah blah</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="container-fluid header greenbg">
       <div class="row">
@@ -49,8 +69,17 @@
         <div class="col-md-5">
           <ul class="menu">
             <li><a href="#">Log out</a></li>
-            <li><a href="#">What is GardenPlanner?</a></li>
+            <li><a href="#" onclick="handleOpenInfo(event)">What is GardenPlanner?</a></li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid loginbutton">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Plan your plants</h2>
+          <button id="authorize-button" onclick="handleAuthClick(event)">Log in with Google</button>
         </div>
       </div>
     </div>
@@ -93,15 +122,6 @@
       </div>
     </div>
     </form>
-
-    <div id="authorize-div" style="display: none">
-      <span>Authorize access to Google Calendar API</span>
-      <!--Button for the user to click to initiate auth sequence -->
-      <button id="authorize-button" onclick="handleAuthClick(event)">
-        Authorize
-      </button>
-    </div>
-    <pre id="output"></pre>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

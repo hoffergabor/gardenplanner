@@ -45,8 +45,7 @@ function insertGardenPlannerCalendar() {
   });
 
   request.execute(function(resp) {
-      console.log('Added GardenPlanner - setting events');
-      console.log(resp.summary + '-' + resp.id);
+      console.log(resp.summary + ' added - ' + resp.id);
       gardenPlannerCalendarId = resp.id;
       listGardenPlannerEvents();
   });
@@ -124,7 +123,6 @@ function saveToCalendar() {
   });
   $('input:checkbox.plantcheckbox').each(function () {
        if (this.checked) {
-         console.log('Attempting to import - ' + $(this).val());
          importGardenPlannerEvents($(this).val());
        }
        else {
@@ -136,7 +134,8 @@ function saveToCalendar() {
 
 /* Import GardenPlanner events */
 function importGardenPlannerEvents(eventName) {
-  calendarId = plants({name:eventName}).calendarId;
+  calendarId = plants({name:eventName}).first().calendarId;
+  console.log('Attempting to import ' + eventName + ' from ' + calendarId);
   var request = gapi.client.calendar.events.list({
     'calendarId': calendarId
   });
@@ -170,7 +169,6 @@ function deleteGardenPlannerEvents(eventName) {
         var event = events[i];
         var eventfirst = getFirstWord(event.summary);
         if (eventfirst == eventnamefirst) {
-          console.log('Checking - ' + event.summary);
           deleteEvent(event);
         };
       }
@@ -213,17 +211,15 @@ function importEvent(event) {
 
 /* Deletes an event */
 function deleteEvent(event) {
+  console.log('Deleting ' + event.summary + ' - ' + event.id + ' from ' + gardenPlannerCalendarId);
   var request = gapi.client.calendar.events.delete({
     'calendarId': gardenPlannerCalendarId,
-    'eventId': event.eventId
+    'eventId': event.id
   });
 
-  if (typeof resp === 'undefined') {
-    console.log('Event was successfully removed from the calendar!');
-  }
-  else{
-    console.log('An error occurred, please try again later.');
-    }
+  request.execute(function(resp) {
+      console.log('Deleted event - ' + resp.summary);
+  });
 
 }
 
@@ -234,10 +230,23 @@ function getFirstWord(string) {
   return (ret = string.substr(0, string.indexOf(" "))) ? ret : string;
 }
 
-
 /* Append a pre element to the body containing the given message as its text node. */
 function appendPre(message) {
   var pre = document.getElementById('output');
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
+}
+
+/* Handling opening of the info popup */
+function handleOpenInfo(event) {
+  $( ".overlay" ).removeClass( "hiddenoverlay" )
+  $( ".infopopup" ).removeClass( "hiddeninfo" )
+  return false;
+}
+
+/* Handling closing of the info popup */
+function handleCloseInfo(event) {
+  $( ".overlay" ).addClass( "hiddenoverlay" )
+  $( ".infopopup" ).addClass( "hiddeninfo" )
+  return false;
 }

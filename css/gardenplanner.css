@@ -16,6 +16,14 @@ body {
 	width: 100%;
 }
 
+.loggedout .header {
+	height: 50vh;
+}
+
+.loggedout .header div {
+	padding: 0 !important;
+}
+
 a.logo {
 	text-indent: -1000px;
 	display: block;
@@ -31,6 +39,14 @@ a.logo {
 	background-repeat: no-repeat;
 }
 
+.loggedout a.logo {
+	margin-top: 40vh;
+	width: 20vh;
+	height: 20vh;
+	background-size: 9vh;
+	border-radius: 10vh;
+}
+
 h1.title {
   font-family: 'Montserrat';
   font-style: normal;
@@ -40,6 +56,17 @@ h1.title {
   color: white;
   margin-top: 28px;
   margin-left: 20px;
+}
+
+.loggedout h1.title {
+	position: absolute;
+ 	font-size: 60px;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	margin-top: 18vh;
+ 	width: 100vw;
+ 	text-align: center;
+ 	padding: 0;
 }
 
 ul.menu {
@@ -58,6 +85,10 @@ ul.menu li:first-child {
 	margin-right: 15px;
 }
 
+.loggedout ul.menu li:first-child {
+	display: none;
+}
+
 ul.menu li a {
 	text-decoration: none;
 	color: white;
@@ -67,6 +98,10 @@ ul.menu li a {
 .plantchooser {
 	z-index: 500;
 	margin-top: 100px;
+}
+
+.loggedout .plantchooser {
+	visibility: hidden;
 }
 
 .plantchooser h2 {
@@ -205,4 +240,61 @@ ul.menu li a {
    	font-family: 'Inconsolata';
    	font-size: 16px;
 	font-weight: normal;
+}
+
+.loginbutton {
+	display: none;
+}
+
+.loggedout .loginbutton {
+	display: block;
+	margin-top: 65vh;
+	text-align: center;
+}
+
+.loginbutton button {
+	background-color: #FF8900;
+	font-weight: bold;
+	font-size: 20px;
+	height: 60px;
+	letter-spacing: 1px;
+	border-radius: 6px;
+	box-shadow: none;
+	border: none;
+	color: white;
+	padding-left: 30px;
+	padding-right: 30px;
+	margin-top: 3vh;
+}
+
+.overlay {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1010;
+}
+
+.hiddenoverlay {
+	visibility: hidden;
+}
+
+.infopopup {
+	background: white;
+	z-index: 1020;
+	position: fixed;
+	left: 20vw;
+	top: 20vh;
+	width: 60vw;
+	height: 60vh;
+	overflow: scroll;
+	padding: 2vw;
+}
+
+.hiddeninfo {
+	visibility: hidden;
 }
